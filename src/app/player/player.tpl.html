@@ -1,0 +1,117 @@
+<section ng-init="init()">
+    <div align="center" style="width: 960px; height: 100%; min-height:680px; margin:5px 5px 5px 5px; text-align:left">
+        <table id="demo" align="left" style="width: 100%">
+            <tr>
+                <td id="url" colspan="2">
+                    <form action="" method="post" style="height: 30px">
+                        <label>服务器：</label><input id="rtmpAddr" style="width: 370px" type="text" ng-model="playAddr" disabled />
+                        <text id="rtmpLive" visible ="false" style="width: 95px" type="text" value="app" />
+                        <input id="rtmpKey" style="display:none;" type="text" value="123456"/>
+                        <label>Stream(选填)：</label><input id="rtmpStream" style="width: 125px; background-color:#EEE" type="text" value="999999" ng-model="playStream"/>
+                        <text id="userID" style="display:none;"  value="10001" />
+                        <input id="timeStamp" style="display:none;" type="text" value="14321"/>
+                        <input id="ckey" style="display:none;" type="text" value="23345"/>
+                        <input id="pkey" style="display:none;" type="text" value="9876"/>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td id="url" colspan="2">
+                    <form action="" method="post" style="height: 30px">
+                        <label>累计流量：</label><input id="totalFlow" style="width: 95px" type="text" value="0.00MB" disabled />
+                        <label>平均码率：</label><input id="avgBitrate" style="width: 95px" type="text" value="0.00kb" disabled />
+                        <label>峰值码率：</label><input id="maxBitrate" style="width: 95px" type="text" value="0.00kb" disabled />
+                    </form>
+                </td>
+            </tr>
+            <tr id="view" valign="top">
+                <td id="view_display">
+                    <table style=" margin-right:0; padding-right:0">
+                        <tr id="view_display_video">
+                            <td id="videoDisplay" style="width: 640px; height: 480px;">
+                                <div id="player1">
+                                    <p>
+                                        To view this page ensure that Adobe Flash Player version
+                                        11.1.0 or greater is installed.
+                                    </p>
+                                    <script type="text/javascript">
+                                        document.write("<a href='http://www.adobe.com/go/getflashplayer'><img alt='Get Adobe Flash player' /></a>" );
+                                    </script>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr id="view_display_info">
+                            <td>
+                                <form action="" method="post" style="right:0">
+                                    <textarea rows="1" cols="20" style="width: 375px; height: 135px; background-color:#EEE;float:left" id="mediaInfo" readonly="readonly"></textarea>
+                                    <textarea rows="1" cols="20" style="width: 252px; height: 135px; background-color:#EEE" id="streamInfo" readonly="readonly"></textarea>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td id="view_control">
+                    <table align="left" >
+                        <tr id="view_control_device">
+                            <td>
+                                <form action="" method="post" style="height: 205px; " >
+                                    <label>&nbsp;&nbsp;&nbsp;&nbsp;</label><input style="display:none;" value="麦克风" ng-click="setCapAudioFromMic()" />
+                                    <input id="stereoButton"  style="display:none;" value="混音" ng-click="setCapAudioFromStereo()" /><br /><br />
+                                    <label><b>音量设置</b></label><br />
+                                    <label>&nbsp;&nbsp;&nbsp;&nbsp;音量：</label><input style="width: 30px" type="text" id="volume" onchange="setVolume()" value="80" />(0~100)
+                                    <input id="isMute" type="checkbox" onchange="setMute()" /><label>静音</label>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr id="view_control_onoff">
+                            <td>
+                                <form action="" method="post" style="height: 160px;">
+                                    <input style="width: 90px; height:90px" type="button" value="播放" id="playBtn" ng-click="initConnect();initConnectad()" />
+                                    <input style="width: 90px; height:90px" type="button" value="停止" id="stopBtn" ng-click="closeConnect()" />
+                                </form>
+                            </td>
+                        </tr>
+
+                        <tr id="view_control_mediaparam">
+                            <td>
+                                <form action="" method="post" style="height: 200px;">
+                                    <label><b>视频参数</b></label><br />
+                                    <!--                             <label>&nbsp;&nbsp;&nbsp;&nbsp;宽：</label> -->
+                                    <input style="display:none;" value="640"  id="width" onchange="setCameraMode()" />
+                                    <!--     <label>&nbsp;&nbsp;&nbsp;&nbsp;高：</label> -->
+                                    <input style="display:none;"  value="480"  id="height" onchange="setCameraMode()" />
+                                    <!--   <label>&nbsp;&nbsp;帧率：</label> -->
+                                    <input style="display:none;" value="10"  id="videoFPS" onchange="setCameraMode()" />
+                                    <!--    <label>&nbsp;&nbsp;码率：</label> -->
+                                    <input style="display:none;" value="256"  id="videoKBitrate" onchange="setCameraQuality()" />
+                                    <!--   <label><b>音频参数</b></label><br /> -->
+                                    <!--   <label>&nbsp;&nbsp;码率：</label> -->
+                                    <input style="display:none;"  value="44" id="audioKBitrate" onchange="setAudioBitrate()" />
+                                    <!--   <label>采样率：</label> -->
+                                    <input style="display:none;" value="44100"  id="audioSamplerate" onchange="setAudioSamplerate()" />
+                                    <!-- <label><b>版本号</b></label><br />
+                                    <label>客户端：</label -->
+                                    <input id="clientVersion" style="display:none;" disabled />
+                                    <label>缓冲区时间：</label -->
+                                    <input id="buffertime" style="width: 90px" value="2.000" onchange="initConnect();initConnectad()"  />秒 <br />
+
+                                    <label><b>全屏大小</b></label><br />
+                                    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;模式：</label>
+                                    <select  id="fullScreenMode"  style='width:95px' onchange="setFullScreenMode()" >
+                                        <option value="1"  >保持比例</option>
+                                        <option value="2"  >铺满屏幕</option>
+                                        <!-- <option value="3"  >原始比例</option> -->
+                                        <option value="3"  >原始尺寸</option>
+                                    </select>
+
+
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</section>

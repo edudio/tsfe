@@ -1,0 +1,247 @@
+<div ng-init="init()" class="col-lg-12">
+
+    <div class="col-lg-8" id="videoDisplay" style="text-align: center;border: solid #e5e5e5 1px">
+        <div id="player1" style="height: 640px; width: 480px;">
+            <p>
+                To view this page ensure that Adobe Flash Player version
+                11.0.0 or greater is installed.
+            </p>
+            <script type="text/javascript">
+                //var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://");
+                document.write("<a href='http://www.adobe.com/go/getflashplayer'><img alt='Get Adobe Flash player' /></a>");
+            </script>
+        </div>
+        <div>
+            <form action="" method="post"
+                  style="margin-bottom:20px;font-family: 宋体; font-size: 12px; text-align: center">
+                <!-- <label id="Label2">客户端版本：</label> --><input name="clientVersion" id="clientVersion"
+                                                                 style="display:none;" type="text"/>
+                <!-- <label id="Label4">flash 版本：</label> --><input name="flashVersion" id="flashVersion"
+                                                                    style="display:none;" type="text"/>
+                <!-- 	<label id="Label5">最低支持插件版本：</label> --><input name="lowestSupportHQVersion"
+                                                                        id="lowestSupportHQVersion"
+                                                                        style="display:none;" type="text"/><br/>
+                <!-- <label id="Label6">实际使用插件版本：</label> --><input name="HQVersion" id="HQVersion"
+                                                                    style="display:none;" type="text"/>
+                <!-- <!-- <label id="Label16">session:</label> --><input name="session" style="display:none;"
+                                                                         type="text" id="session"
+                                                                         value="TestSession"/>
+                <!-- <label id="Label17">ID:</label> --><input name="userID" style="display:none;" type="text"
+                                                               id="userID" value="Test"/>
+
+
+                <input style="display:none;" name="isUDP" type="checkbox" id="isUDP"/><label
+                    style="display:none;" id="Label8">UDP</label>
+                <!--
+                                <br/><br/><br/><br/><br/>
+                -->
+                <section style="display: none">
+                    <label id="Label7">服务器： </label>
+                    <input name="rtmpAddr" style="width: 260px" type="text" id="rtmpAddr"
+                           value="rtmp://3289.lsspublish.aodianyun.com/SolomonTest"/><br/>
+                    <input name="rtmpLive" style="display:none;" type="text" id="rtmpLive" value="xym_test"/>
+
+                    <label id="Label7">Stream： </label> <input name="rtmpStream" style="width: 135px" type="text"
+                                                               id="rtmpStream" value="stream"/>
+                    <input name="isHD" type="checkbox" id="isHD"/> <label id="Label7">高清</label> <br/>
+
+                    <!-- <label >密码:</label> --> <input name="key" type="text" style="display:none;" id="key"
+                                                        value="key"/>
+                </section>
+
+                <input name="initBtn" style="width: 48px" type="button" value="初始化" id="initBtn"
+                       ng-click="initConnect()"/>
+                <input name="closeBtn" style="width: 48px" type="button" value="断开" id="closeBtn"
+                       ng-click="closeConnect()"/>
+                <input name="publishBtn" style="width: 48px" type="button" value="上麦" id="publishBtn"
+                       ng-click="startPublish()"/>
+                <input name="playBtn" style="width: 48px" type="button" value="播放" id="playBtn"
+                       ng-click="startPlay()"/>
+                <input name="pauseBtn" style="width: 48px" type="button" value="暂停" id="pauseBtn"
+                       ng-click="pause()"/>
+                <input name="stopBtn" style="width: 48px" type="button" value="停止" id="stopBtn"
+                       ng-click="stop()"/>
+            </form>
+        </div>
+    </div>
+
+    <div class="cccc col-lg-4" style="margin:0">
+        <div>
+            <span class="label" style="color: #000011">pubkey:</span><input type="text" id="id_pubkey" value="pub_4cae9d25f8393f274a30d608d94568d6" />
+            <br/>
+            <span class="label" style="color: #000011">subkey:</span><input type="text" id="id_subkey" value="sub_3805063028e1d979b34b008a3c3e0ce5" />
+            <button type="button" class="btn reg" ng-click="OnEnter();">
+                进入
+            </button>
+        </div>
+        <div>
+            <span class="label" style="color: #000011">topic:</span>
+            <input type="text" id="idgroup" value="test" />
+            <button type="button" class="btn reg" ng-click="OnJoin();">
+                加入
+            </button>
+            <button type="button" class="btn reg" ng-click="OnUnJoin();">
+                退出
+            </button>
+        </div>
+        <div>
+            <span class="label" style="color: #000011">topic:</span>
+            <input type="text" id="idscope" value="test" />
+            <br/>
+            <span class="label" style="color: #000011">text:</span>
+            <textarea  id="idtext" value="hi" ></textarea>
+            <button type="button" class="btn reg" ng-click="Publish();">
+                推送
+            </button>
+            <button type="button" class="btn reg" ng-click="Clear();">
+                清空
+            </button>
+        </div>
+            <textarea id="chat_show" class="first" readonly="readonly" style="width: 100%;height: 380px">
+            </textarea>
+    </div>
+    <div id="rop_context">
+    </div>
+
+
+    <!--<div class="dms col-lg-4" id="dms">
+        <div class="dms-container">
+            <div class="dms-title"><p class="count"><span class="icon"><img
+                    src="http://cdn.aodianyun.com/dms/layout/wsp/playConsole/img/icon02.png" width="31"
+                    height="26"></span>
+                <span class="nub" id="pvNum">0</span> <span class="icon"><img
+                        src="http://cdn.aodianyun.com/dms/layout/wsp/playConsole/img/icon03.png" width="31"
+                        height="26"></span> <span class="nub" id="praiseNum">0</span> <span class="icon"><img
+                        src="http://cdn.aodianyun.com/dms/layout/wsp/playConsole/img/icon04.png" width="31"
+                        height="26"></span> <span class="nub" id="msgNum">0</span> <span class="icon"><img
+                        src="http://cdn.aodianyun.com/dms/layout/wsp/playConsole/img/icon05.png" width="31"
+                        height="26"></span> <span class="nub" id="shareNum">0</span></p>
+
+            </div>
+            <div class="dms-message-container">
+                <ul id="dmsMessage">
+
+                </ul>
+            </div>
+            <div class="dms-send-container">
+                <div class="emt"></div>
+                <div class="dms-publish-btn" onclick="">发布</div>
+                <div class="dms-textarea-container"><input type="text" placeholder="请输入聊天文字" id="aodianyun-dms-text"
+                                                           onkeydown="javascript:if(event.keyCode==13){}">
+                    &lt;!&ndash; dmsLayoutHandle.publish(); &ndash;&gt;
+                </div>
+                <div class="dms-cb"></div>
+            </div>
+        </div>
+    </div>-->
+
+    <!-- Below is MediaInfo Zone-->
+    <div style="display: none;">
+        <form action="" method="post">
+          <textarea rows="1" cols="20" name="mediaInfo"
+          style="width: 320px; height: 260px; font-family: 宋体; font-size: 12px;" id="mediaInfo"
+          readonly="readonly"></textarea>
+        </form>
+
+        <form action="" method="post">
+
+            <input name="bufferTime" style="width: 60px" type="text" id="bufferTime" value="2"/>
+            <input type="button" ng-click="setPlayMode()" value="设置缓冲区时间"/><br/>
+            <label id="Label21">音量：</label><input name="volume" style="width: 31px" type="text" id="volume"
+                                                  onchange="setVolume()" value="80"/>
+            <input name="isMute" type="checkbox" id="isMute" onchange="setMute()"/><label
+                id="Label132">静音</label>
+        </form>
+    </div>
+
+    <!-- Below is configurations for video player -->
+    <table style="display: none">
+        <td>
+            <tr>
+                <td style="height: 240px; width: 320px">
+                    <form action="" method="post">
+                        <textarea rows="1" cols="20" name="streamInfo"
+                                  style="width: 320px; height: 240px; font-family: 宋体; font-size: 12px;" id="streamInfo"
+                                  readonly="readonly"></textarea>
+                    </form>
+                </td>
+
+                <td style="height: 240px">
+                    <form action="" method="post"
+                          style="width: 320px; height: 260px; font-family: 宋体; font-size: 12px;">
+                        <label id="Label15">视频帧率：</label><input name="videoFPS" type="text" style="width: 90px"
+                                                                value="10" id="videoFPS"
+                                                                onchange="setCameraMode()"/><br/>
+                        <label id="Label120">视频码率：</label><input name="videoKBitrate" style="width: 90px" type="text"
+                                                                 value="512" id="videoKBitrate"
+                                                                 onchange="setCameraQuality()"/>
+                        (kbps)<br/>
+                        <label id="Label121">视频宽：</label><input name="width" style="width: 56px" type="text" value="640"
+                                                                id="width" onchange="setCameraMode()"/>
+
+                        <label id="Label122"><br/>视频高：</label><input name="height" style="width: 56px" type="text"
+                                                                     value="480" id="height"
+                                                                     onchange="setCameraMode()"/><br/>
+                        <label id="Label123">视频质量(0-100)：</label><input name="videoQuality" style="width: 39px"
+                                                                        type="text" value="80" id="videoQuality"
+                                                                        onchange="setCameraQuality()"/><br/>
+                        <label id="Label124">关键帧间隔(1-48)：</label><input name="videoKeyFrameInterval" style="width: 38px"
+                                                                        type="text" value="30"
+                                                                        id="videoKeyFrameInterval"
+                                                                        onchange="setKeyFrameInterval()"/><br/>
+                        <label id="Label125">音频码率(kbps)：</label><input name="audioKBitrate" style="width: 91px"
+                                                                       type="text" value="44" id="audioKBitrate"
+                                                                       onchange="setAudioBitrate()"/><br/>
+                        <label id="Label126">音频采样率(Hz)：</label><input name="audioSamplerate" style="width: 92px"
+                                                                      type="text" value="16000" id="audioSamplerate"
+                                                                      onchange="setAudioSamplerate()"/><br/>
+                        <label id="Label127">音频通道数：</label><input name="audioChannelCount" style="width: 115px"
+                                                                  type="text" value="2" id="audioChannelCount"
+                                                                  onchange="setAudioChannelCount()"/><br/>
+                        <label id="Label128">采样精度(bit)：</label><input name="audioBitPerSample" style="width: 95px"
+                                                                      type="text" value="16" id="audioBitPerSample"
+                                                                      onchange="setAudioBitPerSample()"/>
+                    </form>
+                </td>
+
+                <td style="height: 260px; width: 320px;">
+                    <form action="" method="post"
+                          style="width: 320px; height: 260px; font-family: 宋体; font-size: 12px;">
+                        <p>
+                            <label id="Label19">音频编码：</label>
+                            <select name="audioCodecList" style="width: 150px" id="audioCodecList"
+                                    onchange="setAudioCodec()">
+                            </select>
+                            <br/>
+                            <label id="Label9">视频编码：</label>
+                            <select name="videoCodecList" style="width: 150px" id="videoCodecList"
+                                    onchange="setVideoCodec()">
+                            </select>
+                            <br/>
+                            <label id="Label10">摄 像 头：</label>
+                            <select name="camList" style="width: 150px" id="camList" onchange="setCam()">
+                            </select>
+                            <br/>
+                            <label id="Label11">麦 克 风：</label>
+                            <select name="micList" style="width: 150px" id="micList" onchange="setMic()">
+                            </select>
+                            <br/>
+                            <input name="isUseCam" type="checkbox" checked="checked" id="isUseCam"
+                                   onchange="setIsUseCam()"/>
+                            <label id="Label14">使用摄像头</label>
+                            <input name="isUseMic" type="checkbox" checked="checked" id="isUseMic"
+                                   onchange="setIsUseMic()"/>
+                            <label id="Label44">使用麦克风</label>
+                            <br/>
+                            <input name="Button" type="button" value="麦克风" ng-click="setCapAudioFromMic()"/>
+                            <input name="Button2" type="button" value="混音" ng-click="setCapAudioFromStereo()"/>
+                            <br/>
+                            <input name="Button12" type="button" value="插件测试" ng-click="checkPlugin()"/>
+                            <a href="./HighQualityFlashService_setup.exe">下载插件</a><br/>
+                        </p>
+                    </form>
+                </td>
+            </tr>
+        </td>
+    </table>
+</div>
